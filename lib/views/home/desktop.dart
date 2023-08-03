@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sch_mgt_system/constants/colors.dart';
+import 'package:sch_mgt_system/constants/styles.dart';
+import 'package:sch_mgt_system/model/dashboard_data.dart';
+import 'package:sch_mgt_system/model/trending_articles.dart';
 import 'package:sch_mgt_system/utils/drawer.dart';
 import 'package:sch_mgt_system/widgets/custom_appbar.dart';
 import 'package:sch_mgt_system/widgets/custom_search_field.dart';
@@ -13,30 +16,6 @@ class DeskTopView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-
-    final List<Map<String, dynamic>> data = [
-      {
-        'title': 'Registered Students',
-        'icon': Icons.person_add,
-        'onTap': () {},
-      },
-      {
-        'title': 'Total Rooms',
-        'icon': Icons.touch_app_outlined,
-        'onTap': () {},
-      },
-      {
-        'title': 'Booked Rooms',
-        'icon': Icons.lock_person_sharp,
-        'onTap': () {},
-      },
-      {
-        'title': 'Available Rooms',
-        'icon': Icons.vpn_key,
-        'onTap': () {},
-      },
-    ];
 
     return Scaffold(
       backgroundColor: AppColors.defaultBackgroundColor,
@@ -58,18 +37,18 @@ class DeskTopView extends StatelessWidget {
                     child: SizedBox(
                       width: double.infinity,
                       child: GridView.builder(
-                        itemCount: data.length,
+                        itemCount: dashboardData.length,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 4),
                         itemBuilder: (context, index) {
-                          final Map<String, dynamic> items = data[index];
+                          final DashboardData items = dashboardData[index];
                           return Padding(
                             padding: const EdgeInsets.all(8),
                             child: InkWell(
                               onTap: () {
-                                items['onTap']();
-                                debugPrint(items['title ']);
+                                items.title;
+                                debugPrint(items.title);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -80,16 +59,15 @@ class DeskTopView extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
-                                      items['icon'],
+                                      items.icon,
                                       size: 30,
                                       color: Colors.grey[700],
                                     ),
                                     const SizedBox(height: 10),
                                     Text(
-                                      items['title'],
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
+                                      items.title,
+                                      style: commonDashboardStyle(
+                                        12,
                                       ),
                                     ),
                                   ],
@@ -103,7 +81,7 @@ class DeskTopView extends StatelessWidget {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      itemCount: 7,
+                      itemCount: 1,
                       itemBuilder: (BuildContext context, int index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -210,7 +188,7 @@ class DeskTopView extends StatelessWidget {
                     const SizedBox(height: 10),
                     Expanded(
                       child: ListView.builder(
-                        itemCount: 5,
+                        itemCount: tArticles.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -219,6 +197,35 @@ class DeskTopView extends StatelessWidget {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(8),
                                 color: Colors.grey[200],
+                              ),
+                              child: ListTile(
+                                leading: CircleAvatar(
+                                  radius: 30,
+                                  backgroundColor: Colors.grey[300],
+                                  child: Center(
+                                    child: Text(
+                                      tArticles[index].index.toString(),
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                title: Text(
+                                  tArticles[index].title,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  tArticles[index].subtitle,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           );

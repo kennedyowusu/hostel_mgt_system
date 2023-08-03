@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sch_mgt_system/constants/colors.dart';
+import 'package:sch_mgt_system/constants/styles.dart';
+import 'package:sch_mgt_system/model/dashboard_data.dart';
 import 'package:sch_mgt_system/views/home/res_layout.dart';
 import 'package:sch_mgt_system/widgets/custom_appbar.dart';
 import 'package:sch_mgt_system/widgets/custom_search_field.dart';
@@ -43,16 +45,34 @@ class TabletView extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: GridView.builder(
-                  itemCount: 4,
+                  itemCount: dashboardData.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 4),
                   itemBuilder: (context, index) {
+                    final DashboardData data = dashboardData[index];
                     return Padding(
                       padding: const EdgeInsets.all(8),
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
-                          color: Colors.grey[400],
+                          color: Colors.grey[200],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              data.icon,
+                              size: 30,
+                              color: Colors.grey[700],
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              data.title,
+                              style: commonDashboardStyle(
+                                16,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     );
@@ -62,7 +82,7 @@ class TabletView extends StatelessWidget {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: 6,
+                itemCount: 1,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
