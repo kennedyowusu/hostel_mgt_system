@@ -19,6 +19,9 @@ class LoginView extends ConsumerWidget {
   final String email = '';
   final String password = '';
 
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   AuthButton buildLoginButton(
       double width, WidgetRef ref, BuildContext context) {
     return AuthButton(
@@ -32,6 +35,11 @@ class LoginView extends ConsumerWidget {
 
           try {
             loadingNotifier.setLoading(true);
+
+            final String email = emailController.text;
+            final String password = passwordController.text;
+
+            // userRepository.loginUser(email, password);
 
             await Future.delayed(
               const Duration(seconds: 3),
@@ -56,9 +64,41 @@ class LoginView extends ConsumerWidget {
               },
             );
 
+            // if (user != null) {
+            //   await Future.delayed(
+            //     const Duration(seconds: 3),
+            //     () {
+            //       print('Login Successful');
+
+            //       ref.read(emailControllerProvider).text = email;
+
+            //       ref.read(passwordControllerProvider).text = password;
+
+            //       Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => ResponsiveLayout(
+            //             mobile: MobileView(),
+            //             tablet: TabletView(),
+            //             desktop: DeskTopView(),
+            //             smallMobile: MobileView(),
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //   );
+            // } else {
+            //   ScaffoldMessenger.of(context).showSnackBar(
+            //     const SnackBar(
+            //       content: Text('Invalid email or password'),
+            //     ),
+            //   );
+            // }
+
             loadingNotifier.setLoading(false);
           } catch (e) {
             loadingNotifier.setLoading(false);
+            debugPrint('Error: $e');
             print(e);
           } finally {
             loadingNotifier.setLoading(

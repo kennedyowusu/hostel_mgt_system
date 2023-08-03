@@ -12,7 +12,7 @@ class CustomDesktopDrawer extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: SizeConfig.screenHeight,
-        decoration: const BoxDecoration(color: AppColors.secondaryBg),
+        decoration: const BoxDecoration(color: AppColors.primary),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -36,7 +36,7 @@ class CustomDesktopDrawer extends StatelessWidget {
                     Text(
                       'User Name',
                       style: TextStyle(
-                        color: AppColors.primary,
+                        color: AppColors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
@@ -46,7 +46,7 @@ class CustomDesktopDrawer extends StatelessWidget {
               ),
               const Divider(
                 color: AppColors.white,
-                thickness: 1.5,
+                thickness: 2.0,
               ),
               ListView.builder(
                 shrinkWrap: true,
@@ -55,8 +55,9 @@ class CustomDesktopDrawer extends StatelessWidget {
                 itemBuilder: (BuildContext context, int index) {
                   final Map<String, dynamic> menu = menuData[index];
                   return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 10),
+                    padding: const EdgeInsets.all(
+                      20,
+                    ),
                     child: Menu(
                       title: menu['title'],
                       icon: menu['icon'],
@@ -107,15 +108,18 @@ class Menu extends StatelessWidget {
       children: [
         Icon(
           icon!,
-          color: AppColors.iconGray,
+          color: AppColors.white,
           size: 20.0,
+        ),
+        const SizedBox(
+          width: 10,
         ),
         Text(
           title,
           style: const TextStyle(
-            color: AppColors.iconGray,
+            color: AppColors.white,
             fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w400,
           ),
         ),
       ],
